@@ -1,0 +1,21 @@
+mixin style(props)
+	-
+		var { path, hash } = props;
+		path = typeof props === 'string' ? props : path;
+		var v = (!!version && hash ) ? "?v=" + version : "";
+	link(rel="stylesheet", href=path + v)
+
+mixin script(props)
+	-
+		var { path, hash, async = null, defer = null } = props;
+		path = typeof props === 'string' ? props : path;
+		var v = (!!version && hash ) ? "?v=" + version : "";
+	script(src=path + v, async=async, defer=defer)
+
+mixin styles(props)
+	each s in props
+		+style(s)
+
+mixin scripts(props)
+	each s in props
+		+script(s)

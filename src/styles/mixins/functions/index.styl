@@ -1,0 +1,35 @@
+strip-unit($num)
+    unit($num, "")
+
+rem($property, $values, $base-font-size = 16) {
+    $px = ();
+    $rem = ();
+
+    for $value in $values {
+        if $value == 0 || $value == auto {
+            push($px , $value);
+            push($rem, $value);
+        }
+        else {
+            $unit = unit($value);
+            $val = strip-unit($value);
+
+            if ($unit == "px") {
+                push($px,  $value);
+                push($rem, unit($val / $base-font-size, "rem"));
+            }
+
+            if $unit == "rem" {
+                push($px, unit($val * $base-font-size, "px"));
+                push($rem, $value);
+            }
+        }
+    }
+
+    if $px == $rem {
+        {$property}: $px;
+    } else {
+        {$property}: $px;
+        {$property}: $rem;
+    }
+}

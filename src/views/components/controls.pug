@@ -1,0 +1,18 @@
+mixin control()
+	-
+		var attrs = attributes;
+		var cls = attrs.class;
+	label.control(class=(cls ? cls : '') + " " + "control_type_"+attrs.type)
+		input.control__input(
+			type=attrs.type,
+			name=attrs.name,
+			value=attrs.value
+			disabled=attrs.disabled
+			checked=attrs.checked
+		)
+		span.control__icon
+		span.control__content
+			if block
+				block
+			else
+				#{attrs.label}

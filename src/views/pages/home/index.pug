@@ -1,0 +1,12 @@
+extends /src/views/common/layout
+
+block append defs
+    -
+        pageTitle = "Home";
+        bodyClass = "page_home";
+
+block blockContent
+    h1 home
+
+block blockBodyScripts
+    +script("home.js")

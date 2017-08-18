@@ -1,0 +1,54 @@
+{{!-- Stylus Sprite Template --}}
+
+$sprite = {}
+$sprite["icons"] = {}
+$sprite["icons@2x"] = {}
+$sprite["sizes"] = {}
+$sprite["urls"] = {}
+
+
+{{#spritesheet}}
+$sprite["sizes"]["width"] = {{px.width}}
+$sprite["sizes"]["height"] = {{px.height}}
+
+$sprite["urls"]["image"] = "{{image}}"
+$sprite["urls"]["escaped_image"] = "{{escaped_image}}"
+{{/spritesheet}}
+
+
+{{#retina_spritesheet}}
+$sprite["sizes"]["width@2x"] = {{px.width}}
+$sprite["sizes"]["height@2x"] = {{px.height}}
+
+$sprite["urls"]["image@2x"] = "{{image}}"
+$sprite["urls"]["escaped_image@2x"] = "{{escaped_image}}"
+{{/retina_spritesheet}}
+
+
+{{#sprites}}
+$sprite["icons"]["{{name}}"] = {
+  "width": {{px.width}},
+  "height": {{px.height}},
+  "position": {{px.offset_x}} {{px.offset_y}}
+}
+{{/sprites}}
+
+{{!-- {{#retina_sprites}}
+$sprite["icons@2x"]["{{name}}"] = {
+  "width": {{px.width}},
+  "height": {{px.height}},
+  "position": {{px.offset_x}} {{px.offset_y}}
+}
+{{/retina_sprites}} --}}
+
+setSprite()
+  background: url($sprite["urls"]["escaped_image"]) no-repeat;
+  background-size: $sprite["sizes"]["width"] $sprite["sizes"]["height"];
+
+  +retina()
+    background-image: url($sprite["urls"]["image@2x"]);
+
+sprite($iconName)
+  width: $sprite["icons"][$iconName].width
+  height: $sprite["icons"][$iconName].height
+  background-position: $sprite["icons"][$iconName].position

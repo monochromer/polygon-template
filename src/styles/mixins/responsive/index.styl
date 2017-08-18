@@ -1,0 +1,41 @@
+csslock($prop, $minvalue, $maxvalue, $minviewport, $maxviewport)
+    &
+        {$prop}: $minvalue
+
+        $valueDiff = strip-unit($maxvalue - $minvalue)
+        $viewportDiff = strip-unit($maxviewport - $minviewport)
+        $ratio = ($valueDiff / $viewportDiff)
+
+        @media (min-width: $minviewport)
+            {$prop}: "calc(%s + (100vw - %s) * %s)" % ($minvalue $minviewport $ratio);
+            // {$prop}: "calc(%s + (100vw - %s) * (%s - %s) / (%s - %s))" % ($minvalue $minviewport strip-unit($maxvalue) strip-unit($minvalue) strip-unit($maxviewport) strip-unit($minviewport));
+
+        @media (min-width: $maxviewport)
+            {$prop}: $maxvalue
+
+
+retina(factor = 2)
+    @media (-webkit-min-device-pixel-ratio: factor), (min-resolution: factor * 96dpi)
+        {block}
+
+
+$media = {
+    medium: "(min-width: 992px)",
+    small: "(min-width: 768px)"
+}
+
+mq($mq)
+    if $mq in $media
+        $condition = $media[$mq]
+    else
+        $condition = $mq
+    @media $condition
+        {block}
+
+rmax($value)
+    @media (max-width: $value)
+        {block}
+
+rmin($value)
+    @media (min-width: $value)
+        {block}
