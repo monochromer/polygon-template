@@ -1,74 +1,74 @@
 include /src/views/components/index
 
 block defs
-	-
-		var lang = "ru";
-		var htmlClass = "";
-		var bodyClass = "";
-		var pageTitle = "";
+    -
+        var lang = "ru";
+        var htmlClass = "";
+        var bodyClass = "";
+        var pageTitle = "";
 
 doctype html
 
 +ie("if lt IE 8")
-	<html class="ctx-no-js ctx-ie ctx-ltie8 ctx-ltie9 ctx-ltie10" lang="!{lang}">
+    <html class="ctx-no-js ctx-ie ctx-ltie8 ctx-ltie9 ctx-ltie10" lang="!{lang}">
 +ie("if IE 8")
-	<html class="ctx-no-js ctx-ie ctx-ie8 ctx-ltie9 ctx-ltie10" lang="!{lang}">
+    <html class="ctx-no-js ctx-ie ctx-ie8 ctx-ltie9 ctx-ltie10" lang="!{lang}">
 +ie("if IE 9")
-	<html class="ctx-no-js ctx-ie ctx-gtie8 ctx-ie9 ctx-ltie10" lang="!{lang}">
+    <html class="ctx-no-js ctx-ie ctx-gtie8 ctx-ie9 ctx-ltie10" lang="!{lang}">
 != "<!--[if (gt IE 9)|!(IE)]><!-->"
 html(class="ctx-no-js" + htmlClass, lang=lang)
-	= "\n"
-	!= "<!--<![endif]-->"
+    = "\n"
+    != "<!--<![endif]-->"
 
-	head
-		block blockHead
-			meta(charset="utf-8")
-			meta(http-equiv="X-UA-Compatible", content="IE=edge")
-			meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
-			meta(name="format-detection" content="telephone=no")
-			meta(name="format-detection" content="address=no")
+    head
+        block blockHead
+            meta(charset="utf-8")
+            meta(http-equiv="X-UA-Compatible", content="IE=edge")
+            meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
+            meta(name="format-detection" content="telephone=no")
+            meta(name="format-detection" content="address=no")
 
-			block blockHeadStyles
-				+style("normalize.css")
-				+style({
-					path: "assets/css/critical.css",
-					hash: true
-				})
+            block blockHeadStyles
+                +style("normalize.css")
+                +style({
+                    path: "assets/css/critical.css",
+                    hash: true
+                })
 
-			block blockHeadScripts
-				script.
-					;(function(html) {
-						html.className = html.className.replace("ctx-no-js", "ctx-js")
-					})(document.documentElement);
+            block blockHeadScripts
+                script.
+                    ;(function(html) {
+                        html.className = html.className.replace("ctx-no-js", "ctx-js")
+                    })(document.documentElement);
 
-				+ie("if lt IE 9")
-					<script src="js/html5shiv.min.js"></script>
-					<script src="js/respond.min.js"></script>
-					<script src="js/nwmatcher-1.2.5.js"></script>
-					<script src="js/selectivizr-min.js"></script>
+                +ie("if lt IE 9")
+                    <script src="js/html5shiv.min.js"></script>
+                    <script src="js/respond.min.js"></script>
+                    <script src="js/nwmatcher-1.2.5.js"></script>
+                    <script src="js/selectivizr-min.js"></script>
 
-				+script("js/modernizr.min.js")
+                +script("js/modernizr.min.js")
 
-			block blockTitle
-				- var title = "Polygon Template" + (pageTitle ? " | " + pageTitle : "")
-				title #{title}
+            block blockTitle
+                - var title = "Polygon Template" + (pageTitle ? " | " + pageTitle : "")
+                title #{title}
 
-	block blockBody
-		body(class=bodyClass)
+    block blockBody
+        body(class=bodyClass)
 
-			include header
-			main
-				block blockContent
-			include footer
+            include header
+            main
+                block blockContent
+            include footer
 
-			block blockBodyStyles
-				+style({
-					path: "assets/css/main.css",
-					hash: true
-				})
+            block blockBodyStyles
+                +style({
+                    path: "assets/css/main.css",
+                    hash: true
+                })
 
-			block blockBodyScripts
-				+script({
-					path: "assets/js/main.js",
-					hash: true
-				})
+            block blockBodyScripts
+                +script({
+                    path: "assets/js/main.js",
+                    hash: true
+                })
