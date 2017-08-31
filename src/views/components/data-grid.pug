@@ -1,0 +1,129 @@
+mixin dataGrid(props)
+    -
+        var props = props || {}
+        var dataSource = props.dataSource || {};
+        var columns = props.columns || [];
+
+    mixin column(attrs)
+        -
+            var attrs = attrs || attributes;
+            columns.push(attrs);
+            //- if (typeof attrs.cellTemplate === 'function') {
+            //-   columns[columns.length - 1].cellTemplate = attrs.cellTemplate
+            //- } else {
+            //-   columns[columns.length - 1].cellTemplate = body ? body : function() {}
+            //- }
+        //- if block
+        //-   block
+
+    if block
+        block
+
+    table
+        colgroup
+            col(style="width: 1px")
+            each column in columns
+                col(style=column.width ? `width: ${column.width}` : null)
+
+        thead
+            tr
+                th #
+                each column in columns
+                    if column.headCellTemplate
+                        th(class=column.headCellClass) !{column.headCellTemplate(column)}
+                    else
+                        th(class=column.headCellClass) #{column.title}
+
+        tbody
+            each dataItem, rowIndex in dataSource
+                tr
+                    td #{rowIndex + 1}
+                    each column in columns
+                        - var dataElement = dataSource[rowIndex];
+                        if (column.cellTemplate)
+                            td(class=column.cellClass) !{column.cellTemplate(dataElement)}
+                        else
+                            td(class=column.cellClass) #{dataElement[column.key]}
+
+
+//- examples
+    -
+        var data = [
+            { name: 'John', email: 'john@company.com', age: 32 },
+            { name: 'Alex', email: 'alex@company.com', age: 35 },
+            { name: 'Stiv', email: 'stiv@company.com', age: 65 }
+        ];
+
+    +grid({
+        dataSource: data,
+        columns: [
+            {
+                key: 'name',
+                title: 'Name'
+            },
+            {
+                key: 'email',
+                title: 'E-mail',
+                width: '320px',
+                cellTemplate: (props) => {
+                    return `
+                        <a href="mailto:${props.email}">${props.email}</a>
+                    `;
+                }
+            },
+            {
+                key: 'age',
+                title: 'Age',
+                width: '80px',
+                headCellClass: ['u-align-right'],
+                cellClass: ['u-align-right'],
+                cellTemplate: (props) => {
+                    return `
+                        <code style="color: #6d7e8c">${props.age}</code>
+                    `;
+                }
+            },
+        ]
+    })
+
+    - var activeCell = 'name'
+    +grid({
+        dataSource: data
+    })
+        +column(
+            key='name',
+            title='Name',
+            headCellClass={
+                'u-tu': true,
+                ['u-si']: true,
+                'active': activeCell.toLowerCase().trim() === 'name'
+            }
+        )
+        +column({
+            key: 'age',
+            title: 'Age',
+            width: '80px',
+            headCellClass: ['u-align-right', 'u-tu'],
+            cellClass: ['u-align-right'],
+            headCellTemplate: (column) => {
+                return `
+                    <code style="color: red">${column.title}</code>
+                `;
+            },
+            cellTemplate: (props) => {
+                return `
+                    <code style="color: #6d7e8c">${props.age}</code>
+                `;
+            }
+        })
+        +column({
+            key: 'email',
+            title: 'E-mail',
+            width: '320px',
+            headCellClass: ['u-tu'],
+            cellTemplate: (props) => {
+                return `
+                    <a href="mailto:${props.email}">${props.email}</a>
+                `;
+            }
+        })
