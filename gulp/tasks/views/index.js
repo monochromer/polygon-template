@@ -1,3 +1,5 @@
+const path = require('path');
+
 /**
  * Обработка представлений
  */
@@ -12,7 +14,8 @@ module.exports = (gulp, plugins, config) => (done) => {
   }
 
   return plugins.combiner(
-    gulp.src(config.src),
+    // gulp.src(config.src, { since: gulp.lastRun(config.taskName) }),
+    gulp.src(config.src,),
     plugins.rename(path => {
       let { dirname, basename } = path;
       path.basename = basename === 'index' ? dirname : `${dirname}-${basename}`;
@@ -20,13 +23,14 @@ module.exports = (gulp, plugins, config) => (done) => {
     }),
     plugins.pug(config.engineOptions),
     gulp.dest(config.dest),
-    // plugins.if(
-    //   !!plugins.browserSync.active,
-    //     plugins.browserSync.stream({
-    //       once: true
-    //     }),
-    //     plugins.util.noop()
-    // )
+    plugins.if(
+      !!plugins.browserSync.active,
+        plugins.browserSync.stream({
+          once: true
+        }),
+        // plugins.browserSync.stream(),
+        plugins.util.noop()
+    )
     // plugins.if(
     //   !config.isProduction,
     //     plugins.prettify(config.prettify),

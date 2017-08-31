@@ -1,11 +1,14 @@
+const path = require('path');
+const dataPath = path.join(process.cwd(), 'data');
+
 module.exports = {
   taskName: 'views',
   description: 'Обработка html',
   isProduction: process.env.NODE_ENV === 'production',
   src: 'src/views/pages/*/*.pug',
-  watchFiles: 'src/views/**/*.*',
+  watchFiles: ['src/views/**/*.*', dataPath],
   dest: 'build/',
-  dataPath: 'data',
+  dataPath: dataPath,
   engineOptions: {
     locals: {},
     pretty: '\t',
