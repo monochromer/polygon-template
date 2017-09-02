@@ -8,13 +8,14 @@ mixin dataGrid(props)
         -
             var attrs = attrs || attributes;
             columns.push(attrs);
-            //- if (typeof attrs.cellTemplate === 'function') {
-            //-   columns[columns.length - 1].cellTemplate = attrs.cellTemplate
-            //- } else {
-            //-   columns[columns.length - 1].cellTemplate = body ? body : function() {}
-            //- }
-        //- if block
-        //-   block
+            if (typeof attrs.cellTemplate === 'function') {
+              columns[columns.length - 1].cellTemplate = attrs.cellTemplate
+            } else {
+                if (typeof block === 'function') {
+                    columns[columns.length - 1].cellTemplate = block;
+                    columns[columns.length - 1].cellTemplate.isBlock = true;
+                }
+            }
 
     if block
         block
@@ -41,7 +42,12 @@ mixin dataGrid(props)
                     each column in columns
                         - var dataElement = dataSource[rowIndex];
                         if (column.cellTemplate)
-                            td(class=column.cellClass) !{column.cellTemplate(dataElement)}
+                            if (column.cellTemplate.isBlock)
+                                td(class=column.cellClass)
+                                    - column.cellTemplate.call(dataElement, dataElement)
+                            else
+                                td(class=column.cellClass)
+                                    | !{column.cellTemplate.call(dataElement, dataElement)}
                         else
                             td(class=column.cellClass) #{dataElement[column.key]}
 
@@ -116,6 +122,7 @@ mixin dataGrid(props)
                 `;
             }
         })
+             code(style="color: #39f") #{this.age}
         +column({
             key: 'email',
             title: 'E-mail',
