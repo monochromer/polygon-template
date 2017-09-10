@@ -7,7 +7,7 @@ module.exports = {
   isProduction: process.env.NODE_ENV === 'production',
   src: 'src/views/pages/*/*.pug',
   watchFiles: ['src/views/**/*.*', dataPath],
-  dest: 'build/',
+  dest: 'build',
   dataPath: dataPath,
   engineOptions: {
     locals: {},

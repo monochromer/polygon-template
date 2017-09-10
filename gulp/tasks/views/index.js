@@ -1,17 +1,18 @@
-const path = require('path');
-
 /**
  * Обработка представлений
  */
 module.exports = (gulp, plugins, config) => (done) => {
+  var data;
   if (config.dataPath) {
     let dataPath = config.dataPath;
     delete require.cache[require.resolve(dataPath)];
-    let data = require(dataPath);
+    data = require(dataPath);
     Object.assign(config.engineOptions, {
       locals: data
     });
   }
+
+//   let indexGenerator = require('./indexGenerator');
 
   return plugins.combiner(
     // gulp.src(config.src, { since: gulp.lastRun(config.taskName) }),
@@ -22,6 +23,11 @@ module.exports = (gulp, plugins, config) => (done) => {
         path.basename = basename === 'index' ? dirname : `${dirname}-${basename}`;
         path.dirname = '.';
     }),
+    // indexGenerator({
+    //     dest: config.dest,
+    //     data: data || {},
+    //     siteMap: []
+    // }),
     gulp.dest(config.dest),
     plugins.if(
       !!plugins.browserSync.active,
