@@ -61,7 +61,24 @@ var webpackConfig = {
       'process.env': {
         'NODE_ENV': JSON.stringify(ENV)
       }
-    })
+    }),
+
+    new webpack.optimize.CommonsChunkPlugin({
+      minChunks: module => (
+        module.context &&
+        module.context.indexOf('node_modules') !== -1
+      ),
+      name: 'vendor'
+      // async: 'vendor'
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+        minChunks: module => (
+          module.context &&
+          module.context.indexOf('jquery') !== -1
+        ),
+        name: 'jquery'
+        // async: 'jquery'
+      })
   ].concat(isProduction ? [
     new webpack.optimize.UglifyJsPlugin({
       beautify: false,
