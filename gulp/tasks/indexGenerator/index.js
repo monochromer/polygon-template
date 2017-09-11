@@ -9,7 +9,6 @@ module.exports = (gulp, plugins, config) => (done) => {
       delete require.cache[require.resolve(dataPath)];
       data = require(dataPath);
     }
-    console.log(data);
 
   let indexGenerator = require('./indexGenerator');
 
