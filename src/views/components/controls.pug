@@ -1,6 +1,6 @@
-mixin control()
+mixin control(attrs)
     -
-        var attrs = attributes;
+        var attrs = attrs || attributes;
         var cls = attrs.class;
     label.control(class=(cls ? cls : '') + " " + "control_type_"+attrs.type)
         input.control__input(
@@ -15,4 +15,4 @@ mixin control()
             if block
                 block
             else
-                #{attrs.label}
+                | #{attrs.label}
