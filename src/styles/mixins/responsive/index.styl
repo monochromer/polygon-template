@@ -39,3 +39,7 @@ rmax($value)
 rmin($value)
     @media (min-width: $value)
         {block}
+
+rrange($min, $max)
+    @media (min-width: $min) and (max-width: $max)
+        {block}
