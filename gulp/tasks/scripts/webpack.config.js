@@ -63,6 +63,12 @@ var webpackConfig = {
       }
     }),
 
+    new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery',
+        'window.jQuery': 'jquery',
+    }),
+
     new webpack.optimize.CommonsChunkPlugin({
       minChunks: module => (
         module.context &&
@@ -71,14 +77,14 @@ var webpackConfig = {
       name: 'vendor'
       // async: 'vendor'
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-        minChunks: module => (
-          module.context &&
-          module.context.indexOf('jquery') !== -1
-        ),
-        name: 'jquery'
-        // async: 'jquery'
-      })
+    // new webpack.optimize.CommonsChunkPlugin({
+    //     minChunks: module => (
+    //       module.context &&
+    //       module.context.indexOf('jquery') !== -1
+    //     ),
+    //     name: 'jquery'
+    //     // async: 'jquery'
+    //   })
   ].concat(isProduction ? [
     new webpack.optimize.UglifyJsPlugin({
       beautify: false,
