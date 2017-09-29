@@ -29,11 +29,11 @@ html(class="ctx-no-js" + htmlClass, lang=lang)
             meta(name="format-detection" content="address=no")
 
             block blockHeadStyles
-                +style("normalize.css")
-                +style({
-                    path: "assets/css/critical.css",
-                    hash: true
-                })
+                //- +style("normalize.css")
+                //- +style({
+                //-     path: "assets/css/critical.css",
+                //-     hash: true
+                //- })
 
             block blockHeadScripts
                 script.
@@ -68,6 +68,7 @@ html(class="ctx-no-js" + htmlClass, lang=lang)
                 })
 
             block blockBodyScripts
+                +script("assets/js/vendor.js")
                 +script({
                     path: "assets/js/main.js",
                     hash: true
