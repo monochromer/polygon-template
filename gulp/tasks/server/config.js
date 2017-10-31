@@ -1,12 +1,12 @@
 module.exports = {
   taskName: 'server',
   description: 'Запуск сервера Browsersync для разработки',
-  webpackConfig: require('../scripts/webpack.config.js'),
+//   webpackConfigPath: '../scripts/webpack.config.js',
   enableHot: process.env.NODE_ENV === 'development',
-  isProd: process.env.NODE_ENV === 'production',
+  isProduction: process.env.NODE_ENV === 'production',
   bsConfig: {
     server: {
-      baseDir: 'build',
+      baseDir: 'public',
       directory: true
     },
     host: 'localhost',

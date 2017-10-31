@@ -17,7 +17,7 @@ module.exports = function(options) {
     };
 
     function onEnd(callback) {
-        const renderFn = pug.compileFile(__dirname + '/template.pug', {
+        const renderFn = pug.compileFile(__dirname + '/template/template.pug', {
             basedir: process.cwd(),
             cache: false,
             locals: {}

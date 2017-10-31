@@ -4,6 +4,8 @@
 const path = require('path');
 const fs = require('fs');
 
+const deepmerge = require('deepmerge');
+
 const errorHandler = require('./errorHandler');
 
 const defineTask = (gulp, plugins) => (config) => {
@@ -15,7 +17,12 @@ const defineTask = (gulp, plugins) => (config) => {
         : localConfig;
     } catch(e) {}
 
-    let taskConfig = Object.assign({}, localConfig, config);
+    // let taskConfig = Object.assign({}, localConfig, config);
+    let taskConfig = deepmerge.all([
+        {},
+        localConfig,
+        config
+    ]);
 
     if (config.onError && typeof config.onError === 'function') {
       taskConfig.onError = config.onError;

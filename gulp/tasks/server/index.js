@@ -7,7 +7,7 @@ const webpack = require('webpack');
 const stripAnsi = require('strip-ansi');
 
 module.exports = (gulp, plugins, config) => {
-  const webpackConfig = config.webpackConfig;
+  const webpackConfig = require(config.webpackConfigPath);
   const bundler = webpack(webpackConfig);
   const browserSync = plugins.browserSync;
 
@@ -27,7 +27,7 @@ module.exports = (gulp, plugins, config) => {
   return (done) => {
     browserSync
       .init(Object.assign({}, config.bsConfig || {}, {
-        middleware: [].concat(!config.isProd
+        middleware: [].concat(!config.isProduction
           ? [
             webpackDevMiddleware(bundler, {
               publicPath: webpackConfig.output.publicPath,

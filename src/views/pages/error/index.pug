@@ -1,4 +1,9 @@
 extends /src/views/common/layout
 
+block append defs
+    -
+        pageTitle = "Error";
+        body.classList.push("page_error");
+
 block blockContent
     h1 Error

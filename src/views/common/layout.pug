@@ -2,25 +2,37 @@ include /src/views/components/index
 
 block defs
     -
-        var lang = "ru";
-        var htmlClass = "";
-        var bodyClass = "";
+        var lang = 'ru';
+
+        var html = {
+            attrs: {
+                lang: lang
+            },
+            classList: ['ctx-no-js']
+        }
+
+        var body = {
+            attrs: {},
+            classList: []
+        }
+
         var pageTitle = "";
 
 doctype html
 
 +ie("if lt IE 8")
-    <html class="ctx-no-js ctx-ie ctx-ltie8 ctx-ltie9 ctx-ltie10" lang="!{lang}">
+    <html class="!{html.classList.concat(['ctx-ie', 'ctx-ltie8', 'ctx-ltie9', 'ctx-ltie10']).join(' ')}" lang="!{lang}">
 +ie("if IE 8")
-    <html class="ctx-no-js ctx-ie ctx-ie8 ctx-ltie9 ctx-ltie10" lang="!{lang}">
+    <html class="!{html.classList.concat(['ctx-ie', 'ctx-ie8', 'ctx-ltie9', 'ctx-ltie10']).join(' ')}" lang="!{lang}">
 +ie("if IE 9")
-    <html class="ctx-no-js ctx-ie ctx-gtie8 ctx-ie9 ctx-ltie10" lang="!{lang}">
+    <html class="!{html.classList.concat(['ctx-ie', 'ctx-gtie8', 'ctx-ie9', 'ctx-ltie10']).join(' ')}" lang="!{lang}">
 != "<!--[if (gt IE 9)|!(IE)]><!-->"
-html(class="ctx-no-js" + htmlClass, lang=lang)
+html(class=html.classList)&attributes(html.attrs)
     = "\n"
     != "<!--<![endif]-->"
 
     head
+        include template-logo
         block blockHead
             meta(charset="utf-8")
             meta(http-equiv="X-UA-Compatible", content="IE=edge")
@@ -47,14 +59,14 @@ html(class="ctx-no-js" + htmlClass, lang=lang)
                     <script src="js/nwmatcher-1.2.5.js"></script>
                     <script src="js/selectivizr-min.js"></script>
 
-                +script("js/modernizr.min.js")
+                //- +script("js/modernizr.min.js")
 
             block blockTitle
                 - var title = "Polygon Template" + (pageTitle ? " | " + pageTitle : "")
                 title #{title}
 
     block blockBody
-        body(class=bodyClass)
+        body(class=body.classList)&attributes(body.attrs)
 
             include header
             main

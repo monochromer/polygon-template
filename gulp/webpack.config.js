@@ -21,7 +21,7 @@ var webpackConfig = {
   output: {
     filename: '[name].js',
     // filename: '[name].[hash].js',
-    path: path.join(projectRootPath, 'build/assets/js/'),
+    path: path.join(projectRootPath, 'public/assets/js/'),
     publicPath: '/assets/js/'
   },
 

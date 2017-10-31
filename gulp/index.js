@@ -1,5 +1,6 @@
 const path = require('path');
 const gulp = require('gulp');
+const deepmerge = require('deepmerge');
 
 // Создаем объект с gulp-плагинами и своми share-функциями
 let plugins = require('gulp-load-plugins')();
@@ -8,14 +9,28 @@ Object.assign(plugins, {
   browserSync: require('browser-sync').create()
 });
 
-const getTaskList = require('./utils/getTaskList');
-const tasksPathList = getTaskList(path.join(__dirname, 'tasks'));
+const { getFoldersList } = require('./utils/getTaskList');
+const tasksPathList = getFoldersList(path.join(__dirname, 'tasks'));
+
 const defineTask = require('./utils/defineTask')(gulp, plugins);
 
+const projectConfig = require('./config');
+
 // Регистрируем базовые задачи
-tasksPathList.forEach(taskPath => defineTask({
-  taskPath: taskPath
-}));
+tasksPathList.forEach(taskPath => {
+    var resolvedTaskPath = `${taskPath}/config`;
+    let taskName = require(resolvedTaskPath).taskName;
+    let projectTaskConfig = typeof projectConfig[taskName] === 'object' ? projectConfig[taskName] : {};
+    let taskConfig = deepmerge.all([
+        {},
+        { taskPath },
+        { isProduction: projectConfig.isProduction },
+        projectTaskConfig
+    ]);
+    defineTask(taskConfig);
+});
+
+// return;
 
 
 // Регистрируем составные задачи
@@ -39,9 +54,7 @@ gulp.task(
     gulp.parallel(
       'fonts',
       'images',
-      'views',
-      gulp.series('sprite:images', 'sprite:svg', 'styles'),
-      'scripts'
+      gulp.series('sprite:images', 'sprite:svg', 'styles', 'scripts', 'views')
     )
   )
 );

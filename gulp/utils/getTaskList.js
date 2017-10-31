@@ -10,14 +10,15 @@ function getFoldersList(srcpath) {
     .readdirSync(srcpath)
     .filter(function(file) {
       return fs.statSync(path.join(srcpath, file)).isDirectory();
-    });
+    })
+    .map(folder => path.join(path.join(srcpath, folder)));
 }
 
 
 /**
  * Возвращает "плоский" список всех директорий, не содержащих каталогов
  */
-function getTaskList(dir, tasks) {
+function getNestedFolderList(dir, tasks) {
   tasks = tasks || [];
   var folders = getFoldersList(dir);
 
@@ -26,7 +27,7 @@ function getTaskList(dir, tasks) {
       var folderPath = path.join(dir, folder);
       var subfolders = getFoldersList(folderPath);
       if (subfolders.length > 0) {
-        tasks = getTaskList(folderPath, tasks);
+        tasks = getNestedFolderList(folderPath, tasks);
       } else {
         tasks.push(folderPath);
       }
@@ -36,4 +37,4 @@ function getTaskList(dir, tasks) {
   return tasks;
 }
 
-module.exports = getTaskList;
+module.exports = { getFoldersList, getNestedFolderList };
