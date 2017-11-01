@@ -2,7 +2,7 @@ include /src/views/components/index
 
 block defs
     -
-        var lang = 'ru';
+        var lang = lang || 'ru';
 
         var html = {
             attrs: {
@@ -16,7 +16,7 @@ block defs
             classList: []
         }
 
-        var pageTitle = "";
+        var pageTitle = pageTitle || "";
 
 doctype html
 
