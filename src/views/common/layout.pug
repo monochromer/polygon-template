@@ -4,30 +4,27 @@ block defs
     -
         var lang = lang || 'ru';
 
-        var html = {
-            attrs: {
-                lang: lang
-            },
-            classList: ['ctx-no-js']
-        }
+        var htmlAttrs = {
+            lang: lang,
+            class: ['ctx-no-js']
+        };
 
-        var body = {
-            attrs: {},
-            classList: []
-        }
+        var bodyAttrs =  {
+            class: []
+        };
 
         var pageTitle = pageTitle || "";
 
 doctype html
 
 +ie("if lt IE 8")
-    <html class="!{html.classList.concat(['ctx-ie', 'ctx-ltie8', 'ctx-ltie9', 'ctx-ltie10']).join(' ')}" lang="!{lang}">
+    <html class="!{htmlAttrs.class.concat(['ctx-ie', 'ctx-ltie8', 'ctx-ltie9', 'ctx-ltie10']).join(' ')}" lang="!{htmlAttrs.lang}">
 +ie("if IE 8")
-    <html class="!{html.classList.concat(['ctx-ie', 'ctx-ie8', 'ctx-ltie9', 'ctx-ltie10']).join(' ')}" lang="!{lang}">
+    <html class="!{htmlAttrs.class.concat(['ctx-ie', 'ctx-ie8', 'ctx-ltie9', 'ctx-ltie10']).join(' ')}" lang="!{htmlAttrs.lang}">
 +ie("if IE 9")
-    <html class="!{html.classList.concat(['ctx-ie', 'ctx-gtie8', 'ctx-ie9', 'ctx-ltie10']).join(' ')}" lang="!{lang}">
+    <html class="!{htmlAttrs.class.concat(['ctx-ie', 'ctx-gtie8', 'ctx-ie9', 'ctx-ltie10']).join(' ')}" lang="!{htmlAttrs.lang}">
 != "<!--[if (gt IE 9)|!(IE)]><!-->"
-html(class=html.classList)&attributes(html.attrs)
+html&attributes(htmlAttrs)
     = "\n"
     != "<!--<![endif]-->"
 
@@ -66,7 +63,7 @@ html(class=html.classList)&attributes(html.attrs)
                 title #{title}
 
     block blockBody
-        body(class=body.classList)&attributes(body.attrs)
+        body&attributes(bodyAttrs)
 
             include header
             main
