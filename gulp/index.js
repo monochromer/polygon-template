@@ -30,8 +30,6 @@ tasksPathList.forEach(taskPath => {
     defineTask(taskConfig);
 });
 
-// return;
-
 
 // Регистрируем составные задачи
 function watchFunc(done) {
