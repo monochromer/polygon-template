@@ -18,15 +18,24 @@ const projectConfig = require('./config');
 
 // Регистрируем базовые задачи
 tasksPathList.forEach(taskPath => {
-    var resolvedTaskPath = `${taskPath}/config`;
-    let taskName = require(resolvedTaskPath).taskName;
-    let projectTaskConfig = typeof projectConfig[taskName] === 'object' ? projectConfig[taskName] : {};
+    var resolvedTaskConfigPath = `${taskPath}/config`;
+    var localTaskConfig = require(resolvedTaskConfigPath);
+
+    let taskName = typeof localTaskConfig === 'function'
+        ? localTaskConfig({ localPath: resolvedTaskConfigPath }).taskName
+        : localTaskConfig.taskName;
+
+    let projectTaskConfig = typeof projectConfig[taskName] === 'function'
+        ? projectConfig[taskName]({ localPath: taskPath })
+        : projectConfig[taskName] || {};
+
     let taskConfig = deepmerge.all([
         {},
         { taskPath },
         { isProduction: projectConfig.isProduction },
         projectTaskConfig
     ]);
+
     defineTask(taskConfig);
 });
 
