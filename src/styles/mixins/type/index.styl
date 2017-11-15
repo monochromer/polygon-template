@@ -1,0 +1,11 @@
+fontFace(options)
+    $base = options.basePath || '';
+    $fileName = options.fileName;
+
+    @font-face
+        font-family: options.family;
+        font-weight: options.weight;
+        font-style: options.style;
+        src:
+            url($base + $fileName + '.woff2') format('woff2'),
+            url($base + $fileName + '.woff') format('woff');
