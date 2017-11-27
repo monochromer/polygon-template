@@ -2,6 +2,8 @@ const path = require('path');
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
+const BROWSER_LIST = require('./browserlist');
+
 const BUILD_ROOT = `public`;
 const ASSETS = `${BUILD_ROOT}/assets`;
 const SRC_ROOT = `src`;
@@ -190,7 +192,7 @@ module.exports = {
         dest: PATHS.dest.styles,
         plugins: {
             'autoprefixer': {
-                browsers: ['>1%', 'last 4 version', 'ie 10', 'ie 11']
+                browsers: BROWSER_LIST
             },
             'css-mqpacker': {},
             'postcss-csso': {

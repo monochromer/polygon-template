@@ -6,6 +6,31 @@ const isProduction = ENV === 'production';
 const isDev = !isProduction;
 const projectRootPath = process.cwd();
 
+let babelOptions = {
+  'presets': [
+    ['env', {
+      targets: {
+        browsers: require('./browserlist')
+      }
+    }],
+    'stage-0',
+    'react'
+  ],
+  'plugins': [
+    'transform-runtime',
+    'transform-object-rest-spread',
+    'transform-es2015-modules-commonjs'
+  ],
+  'env': {
+    'production': {
+      'plugins': [
+        'transform-react-constant-elements',
+        'transform-react-inline-elements'
+      ]
+    }
+  }
+};
+
 var webpackConfig = {
   context: path.resolve(projectRootPath, 'src', 'scripts'),
 
@@ -108,13 +133,13 @@ var webpackConfig = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        use: ['babel-loader'],
-        exclude: [/node_modules/, /build/]
-      },
-      {
-        test: /\.jsx$/,
-        use: ['react-hot-loader', 'babel-loader'],
+        test: [/\.js$/, /\.jsx$/],
+        use: isDev ? [
+            // { loader: 'react-hot-loader' },
+            { loader: 'babel-loader', options: babelOptions }
+        ]: [
+            { loader: 'babel-loader', options: babelOptions }
+        ],
         exclude: [/node_modules/, /build/]
       },
       {
