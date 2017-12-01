@@ -45,6 +45,25 @@ html&attributes(htmlAttrs)
                     ;(function(html) {
                         html.className = html.className.replace("ctx-no-js", "ctx-js")
                     })(document.documentElement);
+                    
+                    ;(function(window, document) {
+                        var html = document.documentElement;
+                        html.className += ' ctx-dom-loading';
+                        html.className += ' ctx-page-loading';
+
+                        function onPageLoad(e) {
+                            window.removeEventListener('load', onPageLoad);
+                            html.className = html.className.replace('ctx-page-loading', 'ctx-page-loaded')
+                        }
+
+                        function onDomLoad(e) {
+                            document.removeEventListener('DOMContentLoaded', onDomLoad);
+                            html.className = html.className.replace('ctx-dom-loading', 'ctx-dom-loaded')
+                        }
+
+                        window.addEventListener('load', onPageLoad);
+                        document.addEventListener('DOMContentLoaded', onDomLoad);
+                    })(window, document);
 
                 +ie("if lt IE 9")
                     <script src="js/html5shiv.min.js"></script>
