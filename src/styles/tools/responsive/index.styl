@@ -18,12 +18,6 @@ retina(factor = 2)
     @media (-webkit-min-device-pixel-ratio: factor), (min-resolution: factor * 96dpi)
         {block}
 
-
-$media = {
-    medium: "(min-width: 992px)",
-    small: "(min-width: 768px)"
-}
-
 mq($mq)
     if $mq in $media
         $condition = $media[$mq]
