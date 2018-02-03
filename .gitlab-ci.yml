@@ -9,7 +9,6 @@ pages:
   script:
   - npm install
   - npm run build
-  # - mv build public
 
   artifacts:
     paths:
