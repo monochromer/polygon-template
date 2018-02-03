@@ -1,6 +1,6 @@
 {
   "name": "polygon-template",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "author": "monochromer@mail.ru",
   "scripts": {
     "start": "cross-env NODE_ENV=development gulp dev",
