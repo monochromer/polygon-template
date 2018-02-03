@@ -51,7 +51,7 @@ function watchFunc(done) {
     };
 
     if (!config.excludeWatch && config.watchFiles && config.taskName) {
-      gulp.watch(config.watchFiles, gulp.parallel(config.taskName));
+      gulp.watch(config.watchFiles, gulp.series(config.taskName));
     }
   });
 
