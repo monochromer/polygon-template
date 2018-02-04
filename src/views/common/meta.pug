@@ -23,6 +23,19 @@ meta(name="format-detection" content="address=no")
     meta(name="msapplication-wide310x150logo" content="images/widetile.png")
     meta(name="msapplication-square310x310logo" content="images/largetile.png")
 
+//- browserconfig.xml file example
+    <?xml version="1.0" encoding="utf-8"?>
+    <browserconfig>
+    <msapplication>
+        <tile>
+            <square70x70logo src="small.png"/>
+            <square150x150logo src="medium.png"/>
+            <wide310x150logo src="wide.png"/>
+            <square310x310logo src="large.png"/>
+        </tile>
+    </msapplication>
+    </browserconfig>
+
 //- mac os
     link(rel="mask-icon" href="safari-pinned-tab.svg" color="#00а0ff")
 
@@ -43,3 +56,30 @@ meta(name="format-detection" content="address=no")
 //- android
     meta(name="theme-color" content="#9cc2ce")
     link(rel="manifest" href="manifest.json")
+
+//- Переадресация на страницу с другим языком
+    link(rel="alternate" href="https://en.example.com/" hreflang="en")
+
+//- social sharing
+//- http://www.phpied.com/minimum-viable-sharing-meta-tags/
+//- Facebook Open Graph
+//- Размер изображений должен быть хотя бы 600 x 315 px, а лучше 1200 x 630 px.
+//- validator https://developers.facebook.com/tools/debug/
+    meta(property="og:type" content="website")
+    meta(property="og:url" content="https://example.com/page.html")
+    meta(property="og:title" content="Content Title")
+    meta(property="og:image" content="https://example.com/image.jpg")
+    meta(property="og:description" content="Description Here")
+    meta(property="og:site_name" content="Site Name")
+    meta(property="og:locale" content="en_US")
+
+//- Twitter Card
+//- валидатор - https://cards-dev.twitter.com/validator
+    meta(name="twitter:card" content="summary")
+    meta(name="twitter:site" content="@site_account")
+    meta(name="twitter:creator" content="@individual_account")
+    meta(name="twitter:url" content="https://example.com/page.html")
+    meta(name="twitter:title" content="Content Title")
+    meta(name="twitter:description" content="Описание контента короче 200 символов")
+    meta(name="twitter:image" content="https://example.com/image.jpg")
+

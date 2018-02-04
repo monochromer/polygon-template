@@ -3,9 +3,11 @@ include /src/views/components/index
 block defs
     -
         var lang = lang || 'ru';
+        var dir = dir || 'ltr';
 
         var htmlAttrs = {
             lang: lang,
+            dir: dir,
             class: ['ctx-no-js']
         };
 
@@ -45,7 +47,7 @@ html&attributes(htmlAttrs)
                     ;(function(html) {
                         html.className = html.className.replace("ctx-no-js", "ctx-js")
                     })(document.documentElement);
-                    
+
                     ;(function(window, document) {
                         var html = document.documentElement;
                         html.className += ' ctx-dom-loading';
