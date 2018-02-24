@@ -11,7 +11,7 @@ module.exports = (gulp, plugins) => (config) => (done) => {
         .pipe(plugins.if(
             config.isProduction,
             plugins.imagemin(),
-            plugins.util.noop()
+            plugins.noop()
         ))
         .pipe(gulp.dest(config.imgDest));
 
@@ -26,7 +26,7 @@ module.exports = (gulp, plugins) => (config) => (done) => {
             plugins.browserSync.stream({
                 once: true
             }),
-            plugins.util.noop()
+            plugins.noop()
         )
     )
     .on('error', config.onError);

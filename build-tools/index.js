@@ -5,6 +5,8 @@ const browserSync = require('browser-sync');
 const loadPlugins = require('gulp-load-plugins');
 
 const combiner = require('./utils/combiner');
+const noop = require('./utils/noopStream');
+const logger = require('./utils/logger');
 const { getFoldersList } = require('./utils/getTaskList');
 
 const projectConfig = require('./config');
@@ -14,6 +16,8 @@ let plugins = loadPlugins();
 
 Object.assign(plugins, {
   combiner,
+  noop,
+  logger,
   browserSync: browserSync.create()
 });
 

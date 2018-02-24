@@ -14,7 +14,7 @@ module.exports = (gulp, plugins) => (config) => (done) => {
               once: true,
               match: '**/*.{woff,woff2,ttf,otf,eot}'
             }),
-            plugins.util.noop()
+            plugins.noop()
         )
     ).on('error', config.onError);
 };

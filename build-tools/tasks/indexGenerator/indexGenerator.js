@@ -27,7 +27,7 @@ module.exports = (gulp, plugins) => (config) => (done) => {
                 once: true
             }),
             // plugins.browserSync.stream(),
-            plugins.util.noop()
+            plugins.noop()
         )
     ).on('error', config.onError);
   }

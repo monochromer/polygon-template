@@ -4,7 +4,7 @@ process.on('uncaughtException', function(err) {
 });
 
 process.on('unhandledRejection', (reason, p) => {
-    console.log(`Unhandled Rejection at: ${p}, reason: ${reason}`);
+    console.error(`Unhandled Rejection at: ${p}, reason: ${reason}`);
     process.exit(255);
 });
 

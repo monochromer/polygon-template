@@ -6,7 +6,7 @@ const del = require('del');
 module.exports = (gulp, plugins) => (config) => (done) => {
     return del([config.src])
         .then(function(paths) {
-            plugins.util.log('Deleted:', plugins.util.colors.magenta(paths.join('\n')));
+            plugins.logger(module).info('Deleted:', paths.join('\n'));
             done();
         });
 };

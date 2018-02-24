@@ -2,6 +2,6 @@ module.exports = {
   taskName: 'fonts',
   description: 'Обработка шрифтов',
   src: 'src/fonts/**/*.*',
-  dest: 'build/assets/fonts',
+  dest: 'public/assets/fonts',
   watchFiles: 'src/fonts/**/*.*'
 }
