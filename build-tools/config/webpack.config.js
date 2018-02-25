@@ -102,22 +102,26 @@ var webpackConfig = {
     module: {
         rules: [{
                 test: [/\.js$/, /\.jsx$/],
-                use: isDev ? [
-                    // { loader: 'react-hot-loader' },
-                    {
-                        loader: 'babel-loader',
-                        options: babelOptions
-                    }
-                ] : [{
-                    loader: 'babel-loader',
-                    options: babelOptions
-                }],
-                exclude: [/node_modules/, /build/]
+                use: !!isDev
+                    ? [
+                        // { loader: 'react-hot-loader' },
+                        {
+                            loader: 'babel-loader',
+                            options: babelOptions
+                        }
+                    ]
+                    : [
+                        {
+                            loader: 'babel-loader',
+                            options: babelOptions
+                        }
+                    ],
+                exclude: [/node_modules/, new RegExp(PATHS.BUILD_ROOT)]
             },
             {
                 test: /\.tsx?$/,
                 use: ['awesome-typescript-loader'],
-                exclude: [/node_modules/, /build/]
+                exclude: [/node_modules/, new RegExp(PATHS.BUILD_ROOT)]
             }
         ]
     }
