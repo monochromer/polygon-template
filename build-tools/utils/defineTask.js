@@ -28,7 +28,7 @@ const defineTask = (gulp, plugins) => (taskPath) => (customConfig = {}) => {
             return task(gulp, plugins)(taskConfig)(done);
         } catch(e) {
             const { logger } = plugins;
-            logger.error(module)(e);
+            logger(module).error(e);
             return done();
         }
     };
